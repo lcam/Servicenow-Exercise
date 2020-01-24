@@ -35,7 +35,6 @@ public class ReviewListActivity extends DaggerAppCompatActivity {
     }
 
     private void initRecyclerView(){
-        //reviewAdapter = new ReviewAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reviewAdapter);
