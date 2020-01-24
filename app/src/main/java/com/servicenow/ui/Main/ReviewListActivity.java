@@ -1,5 +1,6 @@
-package com.servicenow.ui;
+package com.servicenow.ui.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.servicenow.model.Review;
 import com.servicenow.model.CoffeeShopReviews;
 import com.servicenow.exercise.R;
+import com.servicenow.ui.Details.DetailsActivity;
 import com.servicenow.viewmodelfactory.ViewModelProviderFactory;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,11 +27,11 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ReviewListActivity extends DaggerAppCompatActivity {
     private static final String TAG = "ReviewListActivity";
 
-    public static final Review[] coffeeShopReviews = CoffeeShopReviews.INSTANCE.getList();
+    //public static final Review[] coffeeShopReviews = CoffeeShopReviews.INSTANCE.getList();
     private ReviewViewModel viewModel;
     private RecyclerView recyclerView;
 
-    @Inject
+    //@Inject
     ReviewAdapter reviewAdapter;
 
     @Inject
@@ -51,32 +52,40 @@ public class ReviewListActivity extends DaggerAppCompatActivity {
     }
 
     private void initRecyclerView(){
+        reviewAdapter = new ReviewAdapter(new ReviewAdapter.OnItemClickListener() {
+            @Override public void onItemClick(int position, Review item) {
+                Toast.makeText(getApplicationContext(), "Item Clicked in Main", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(ReviewListActivity.this, DetailsActivity.class);
+                intent.putExtra("shopPosition", position);
+                startActivity(intent);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reviewAdapter);
-        //reviewAdapter.setReviews(Arrays.asList(coffeeShopReviews));
     }
 
     private void subscribeObservers() {
         Log.d(TAG, "subscribeObservers: starting");
         disposables.add(viewModel.getReviews().subscribe(
-                reviewResource -> observePosts(reviewResource),
+                reviewResource -> observeReviews(reviewResource),
                 throwable -> Log.e(TAG, "subscribeObservers: onError", throwable)
         ));
     }
 
-    private void observePosts(Resource<List<Review>> listResource) {
-        Log.d(TAG, "observePosts: starting");
+    private void observeReviews(Resource<List<Review>> listResource) {
+        Log.d(TAG, "observeReviews: starting");
 
         if(listResource != null) {
             switch (listResource.status) {
                 case SUCCESS:{
-                    Log.d(TAG, "observePosts: got employees!");
+                    Log.d(TAG, "observeReviews: got reviews!");
                     reviewAdapter.setReviews(listResource.data);
                     break;
                 }
                 case ERROR:{
-                    Log.e(TAG, "observePosts: ERROR! " + listResource.message);
+                    Log.e(TAG, "observeReviews: ERROR! " + listResource.message);
                     Toast.makeText(this, listResource.message, Toast.LENGTH_LONG).show();
                     break;
                 }

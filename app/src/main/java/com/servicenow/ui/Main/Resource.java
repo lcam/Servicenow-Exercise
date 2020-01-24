@@ -1,4 +1,4 @@
-package com.servicenow.ui;
+package com.servicenow.ui.Main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

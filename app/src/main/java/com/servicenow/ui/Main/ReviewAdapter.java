@@ -1,4 +1,4 @@
-package com.servicenow.ui;
+package com.servicenow.ui.Main;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,16 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
-    List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, Review item);
+    }
+    private final OnItemClickListener listener;
+
+    public ReviewAdapter(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -27,7 +36,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
-        holder.bind(reviews.get(position));
+        holder.bind(position, reviews.get(position), listener);
     }
 
     @Override

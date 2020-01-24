@@ -3,7 +3,7 @@ package com.servicenow.network;
 import android.util.Log;
 
 import com.servicenow.model.Review;
-import com.servicenow.ui.Resource;
+import com.servicenow.ui.Main.Resource;
 
 import java.util.ArrayList;
 import java.util.List;

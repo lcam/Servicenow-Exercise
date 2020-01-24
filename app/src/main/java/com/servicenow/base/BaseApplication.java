@@ -1,6 +1,5 @@
 package com.servicenow.base;
 
-
 import com.servicenow.di.application.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
