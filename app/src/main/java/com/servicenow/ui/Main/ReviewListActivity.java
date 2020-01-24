@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.servicenow.model.Review;
-import com.servicenow.model.CoffeeShopReviews;
 import com.servicenow.exercise.R;
 import com.servicenow.ui.Details.DetailsActivity;
 import com.servicenow.viewmodelfactory.ViewModelProviderFactory;
@@ -27,11 +26,9 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ReviewListActivity extends DaggerAppCompatActivity {
     private static final String TAG = "ReviewListActivity";
 
-    //public static final Review[] coffeeShopReviews = CoffeeShopReviews.INSTANCE.getList();
     private ReviewViewModel viewModel;
     private RecyclerView recyclerView;
 
-    //@Inject
     ReviewAdapter reviewAdapter;
 
     @Inject
@@ -54,8 +51,6 @@ public class ReviewListActivity extends DaggerAppCompatActivity {
     private void initRecyclerView(){
         reviewAdapter = new ReviewAdapter(new ReviewAdapter.OnItemClickListener() {
             @Override public void onItemClick(int position, Review item) {
-                Toast.makeText(getApplicationContext(), "Item Clicked in Main", Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(ReviewListActivity.this, DetailsActivity.class);
                 intent.putExtra("shopPosition", position);
                 startActivity(intent);
@@ -91,5 +86,11 @@ public class ReviewListActivity extends DaggerAppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposables.clear();
     }
 }

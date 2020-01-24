@@ -49,7 +49,7 @@ public class DetailsActivity extends DaggerAppCompatActivity {
     }
 
     private void setTextViews(Review review){
-        ratingText.setText(String.valueOf(review.getRating()));
+        ratingText.setText(String.format("Rating: %d", review.getRating()));
         locationText.setText(review.getLocation());
         reviewText.setText(review.getReview());
     }
@@ -79,5 +79,11 @@ public class DetailsActivity extends DaggerAppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposables.clear();
     }
 }
