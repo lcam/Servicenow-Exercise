@@ -1,4 +1,4 @@
-package com.servicenow.coffee
+package com.servicenow.model
 
 object CoffeeShopReviews {
     val list = arrayOf(

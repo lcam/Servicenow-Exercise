@@ -1,4 +1,4 @@
-package com.servicenow.exercise_java;
+package com.servicenow.ui;
 
 import org.junit.Test;
 

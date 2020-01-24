@@ -1,25 +1,29 @@
-package com.servicenow.exercise_java;
+package com.servicenow.ui;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.servicenow.ReviewAdapter;
-import com.servicenow.coffee.Review;
-import com.servicenow.coffee.CoffeeShopReviews;
+import com.servicenow.model.Review;
+import com.servicenow.model.CoffeeShopReviews;
 import com.servicenow.exercise.R;
 
 import java.util.Arrays;
 
-public class ReviewListActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class ReviewListActivity extends DaggerAppCompatActivity {
 
     public static final Review[] coffeeShopReviews = CoffeeShopReviews.INSTANCE.getList();
     private RecyclerView recyclerView;
-    private ReviewAdapter reviewAdapter;
+
+    @Inject
+    ReviewAdapter reviewAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class ReviewListActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        reviewAdapter = new ReviewAdapter();
+        //reviewAdapter = new ReviewAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reviewAdapter);

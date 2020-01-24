@@ -1,4 +1,4 @@
-package com.servicenow;
+package com.servicenow.ui;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.servicenow.coffee.Review;
+import com.servicenow.model.Review;
 import com.servicenow.exercise.R;
 
 public class ReviewViewHolder extends RecyclerView.ViewHolder {
